@@ -24,53 +24,38 @@
 
 // ```
 // "19:05:45"
-// ```
 
 // ```
-// s = "12:40:22AM"
 // ```
+const s = "01:05:45PM";
+// function timeConversion(s) {
+//   const strippedString = s.slice(0, 8);
+//   const timeArray = strippedString.split(":");
+//   const newHour = Number(timeArray[0]) + 12;
+//   const newTime = newHour + strippedString.slice(2);
+//   return newTime;
 
-// Return:
-
-// ```
-// "00:40:22"
-// ```
-
-// ## Function Description
-
-// Complete the `timeConversion` function in `solution.js`.
-
-// - `string s`: a time in 12-hour AM/PM format (`hh:mm:ssAM` or `hh:mm:ssPM`)
-
-// Returns:
-// - `string`: the time in 24-hour format (`HH:MM:SS`)
-
-// ## Constraints
-
-// - The input string is always a valid time in the format `hh:mm:ssAM` or `hh:mm:ssPM`
-// - `01 <= hh <= 12`
-// - `00 <= mm, ss <= 59`
-
-// ## Sample Input / Output
-
-// ```
-// Input:  "12:01:00PM"
-// Output: "12:01:00"
-// ```
-
-// ```
-// Input:  "12:01:00AM"
-// Output: "00:01:00"
-// ```
-
-// ```
-// Input:  "07:05:45PM"
-// Output: "19:05:45"
-// ```
-
+// }
 
 function timeConversion(s) {
-  // TODO: convert 12-hour AM/PM format to 24-hour military time format
+  const amPM = s.slice(-2);
+  const strippedString = s.slice(0, -2);
+  const timeArray = strippedString.split(":");
+  const hour = Number(timeArray[0]);
+
+  let newTime = "";
+  if (amPM === "PM" && hour !== 12) {
+    newTime = (hour + 12) + strippedString.slice(2);
+  } else if (amPM === 'PM' && hour === 12) {
+    newTime = "12" + strippedString.slice(2);
+  } else if (amPM === 'AM' && hour === 12) {
+    newTime = "00" + strippedString.slice(2);
+  } else {
+    newTime = strippedString;
+  }
+  
+  return newTime;
+
 }
 
 module.exports = timeConversion;
